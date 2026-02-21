@@ -1,4 +1,4 @@
--- SCRIPT JD ULTRA PREMIUM V8 (INTRO FIX + INVISIBLE) - JUAN
+-- SCRIPT JD ULTRA PREMIUM V10 (DESCRIPCIONES + LOCK) - JUAN
 local player = game.Players.LocalPlayer
 local tweenService = game:GetService("TweenService")
 local lighting = game:GetService("Lighting")
@@ -10,21 +10,17 @@ local function IniciarTodo()
     sg.ResetOnSpawn = false
     sg.DisplayOrder = 100
 
-    -- 1. ANIMACIÓN DE ENTRADA (JD + SCRIPT COLOREADO)
+    -- 🔒 [CANDADO DE SEGURIDAD: ANIMACIÓN DE ENTRADA - NO TOCAR] 🔒
     local blur = Instance.new("BlurEffect", lighting); blur.Size = 25
     local introFrame = Instance.new("Frame", sg); introFrame.Size = UDim2.new(1, 0, 1, 0); introFrame.BackgroundTransparency = 1
-
     local J = Instance.new("TextLabel", introFrame)
     J.Size = UDim2.new(0, 100, 0, 100); J.Position = UDim2.new(-0.3, 0, 0.5, -70)
     J.Text = "J"; J.TextColor3 = Color3.fromRGB(255, 0, 0); J.Font = Enum.Font.GothamBlack; J.TextSize = 100; J.BackgroundTransparency = 1
-
     local D = Instance.new("TextLabel", introFrame)
     D.Size = UDim2.new(0, 100, 0, 100); D.Position = UDim2.new(1.3, 0, 0.5, -70)
     D.Text = "D"; D.TextColor3 = Color3.fromRGB(255, 0, 0); D.Font = Enum.Font.GothamBlack; D.TextSize = 100; D.BackgroundTransparency = 1
-
     local sText = Instance.new("TextLabel", introFrame)
     sText.Size = UDim2.new(0, 200, 0, 50); sText.Position = UDim2.new(0.5, -100, 0.65, 0); sText.Text = "SCRIPT"; sText.Font = Enum.Font.GothamBlack; sText.TextSize = 40; sText.TextColor3 = Color3.fromRGB(255, 0, 0); sText.TextTransparency = 1; sText.BackgroundTransparency = 1
-
     task.wait(0.5)
     tweenService:Create(J, TweenInfo.new(1.2, Enum.EasingStyle.Back), {Position = UDim2.new(0.5, -80, 0.5, -70)}):Play()
     tweenService:Create(D, TweenInfo.new(1.2, Enum.EasingStyle.Back), {Position = UDim2.new(0.5, -10, 0.5, -70)}):Play()
@@ -33,6 +29,7 @@ local function IniciarTodo()
     task.wait(1.1)
     tweenService:Create(blur, TweenInfo.new(1.5), {Size = 0}):Play()
     task.wait(1.5); introFrame:Destroy(); if blur then blur:Destroy() end
+    -- 🔒 [FIN DEL CANDADO] 🔒
 
     -- 2. BOTÓN FLOTANTE (DRIP)
     local mainButton = Instance.new("TextButton", sg)
@@ -50,7 +47,7 @@ local function IniciarTodo()
     mainFrame.Size = UDim2.new(0, 480, 0, 280); mainFrame.Position = UDim2.new(0.5, -240, 0.5, -140); mainFrame.BackgroundColor3 = Color3.fromRGB(10, 10, 12); mainFrame.Visible = false; mainFrame.ClipsDescendants = true; mainFrame.ZIndex = 20
     Instance.new("UICorner", mainFrame).CornerRadius = UDim.new(0, 15); Instance.new("UIStroke", mainFrame).Color = Color3.fromRGB(255, 0, 0)
 
-    -- SIDEBAR + LÍNEA
+    -- SIDEBAR
     local sidebar = Instance.new("Frame", mainFrame); sidebar.Size = UDim2.new(0, 55, 1, 0); sidebar.BackgroundColor3 = Color3.fromRGB(15, 15, 18); sidebar.BorderSizePixel = 0; sidebar.ZIndex = 21
     local line = Instance.new("Frame", sidebar); line.Size = UDim2.new(0, 2, 1, 0); line.Position = UDim2.new(1, 0, 0, 0); line.BackgroundColor3 = Color3.fromRGB(255, 0, 0); line.BorderSizePixel = 0; line.ZIndex = 22
     local btnScripts = Instance.new("TextButton", sidebar); btnScripts.Size = UDim2.new(0, 35, 0, 35); btnScripts.Position = UDim2.new(0.5, -17, 0, 20); btnScripts.Text = "📜"; btnScripts.BackgroundColor3 = Color3.fromRGB(60, 0, 0); btnScripts.ZIndex = 23; Instance.new("UICorner", btnScripts)
@@ -58,23 +55,27 @@ local function IniciarTodo()
 
     -- SCROLL CONTAINER
     local scroll = Instance.new("ScrollingFrame", mainFrame)
-    scroll.Size = UDim2.new(1, -65, 1, -20); scroll.Position = UDim2.new(0, 65, 0, 10); scroll.BackgroundTransparency = 1; scroll.BorderSizePixel = 0; scroll.ZIndex = 21; scroll.ScrollBarThickness = 4; scroll.ScrollBarImageColor3 = Color3.fromRGB(255, 0, 0); scroll.CanvasSize = UDim2.new(0, 0, 2, 0)
+    scroll.Size = UDim2.new(1, -65, 1, -20); scroll.Position = UDim2.new(0, 65, 0, 10); scroll.BackgroundTransparency = 1; scroll.BorderSizePixel = 0; scroll.ZIndex = 21; scroll.ScrollBarThickness = 4; scroll.ScrollBarImageColor3 = Color3.fromRGB(255, 0, 0); scroll.CanvasSize = UDim2.new(0, 0, 2.5, 0)
 
-    -- PÁGINA 1: SCRIPTS
+    -- PÁGINA 1: SCRIPTS CON DESCRIPCIONES
     local pScripts = Instance.new("Frame", scroll); pScripts.Size = UDim2.new(1, 0, 1, 0); pScripts.BackgroundTransparency = 1; pScripts.ZIndex = 22
     local tTitle = Instance.new("TextLabel", pScripts); tTitle.Size = UDim2.new(1, 0, 0, 30); tTitle.Text = "MODS DISPONIBLES (BETA)"; tTitle.Font = Enum.Font.GothamBlack; tTitle.TextSize = 18; tTitle.TextColor3 = Color3.fromRGB(255, 0, 0); tTitle.BackgroundTransparency = 1; tTitle.ZIndex = 23; tTitle.TextXAlignment = Enum.TextXAlignment.Left
 
-    local function CrearBoton(nombre, yPos)
-        local btn = Instance.new("TextButton", pScripts); btn.Size = UDim2.new(0, 200, 0, 40); btn.Position = UDim2.new(0, 5, 0, yPos); btn.BackgroundColor3 = Color3.fromRGB(25, 25, 28); btn.Text = nombre; btn.TextColor3 = Color3.fromRGB(255, 255, 255); btn.Font = Enum.Font.GothamBold; btn.TextSize = 16; btn.ZIndex = 23
+    local function CrearEntradaScript(nombre, desc, yPos)
+        local btn = Instance.new("TextButton", pScripts); btn.Size = UDim2.new(0, 160, 0, 40); btn.Position = UDim2.new(0, 5, 0, yPos); btn.BackgroundColor3 = Color3.fromRGB(25, 25, 28); btn.Text = nombre; btn.TextColor3 = Color3.fromRGB(255, 255, 255); btn.Font = Enum.Font.GothamBold; btn.TextSize = 14; btn.ZIndex = 23
         Instance.new("UICorner", btn); Instance.new("UIStroke", btn).Color = Color3.fromRGB(255, 0, 0)
+
+        local descText = Instance.new("TextLabel", pScripts)
+        descText.Size = UDim2.new(1, -175, 0, 50); descText.Position = UDim2.new(0, 175, 0, yPos - 5); descText.Text = desc; descText.Font = Enum.Font.Gotham; descText.TextSize = 12; descText.TextColor3 = Color3.fromRGB(180, 180, 180); descText.BackgroundTransparency = 1; descText.TextWrapped = true; descText.TextXAlignment = Enum.TextXAlignment.Left; descText.ZIndex = 23
         return btn
     end
-    local btnTachos = CrearBoton("Auto Farm de Tachos", 45)
-    local btnInvis = CrearBoton("Invisibilidad FE", 95)
 
-    -- PÁGINA 2: CRÉDITOS (TESTAMENTO EPICO)
+    local btnTachos = CrearEntradaScript("Auto Farm Tachos", "Para los campos de batalla más fuertes. Consigue tachos al instante e incluye velocidad e invisibilidad.", 45)
+    local btnInvis = CrearEntradaScript("Invisibilidad FE", "Funciona para cualquier juego. No puedes atacar ni ser atacado, ideal para observar todo lo que pasa.", 105)
+
+    -- PÁGINA 2: CRÉDITOS
     local pCredits = Instance.new("Frame", scroll); pCredits.Size = UDim2.new(1, 0, 1, 0); pCredits.BackgroundTransparency = 1; pCredits.Visible = false; pCredits.ZIndex = 22
-    local tCredits = Instance.new("TextLabel", pCredits); tCredits.Size = UDim2.new(0.95, 0, 0, 450); tCredits.Position = UDim2.new(0.02, 0, 0, 10); tCredits.Text = "JD SCRIPT SYSTEM\n\nEstado: VERSIÓN BETA\nCreador: juanelcaballowasa\n\n¡Bienvenidos al corazón del sistema JD! Este proyecto nace con la misión de ser el mejor compañero para tus partidas. Nos esforzamos día a día para integrar scripts de calidad que funcionen de maravilla.\n\nAún estamos en desarrollo constante, por lo que verás muchas actualizaciones pronto. Nos ayudaría un mundo si sigues al creador (juanelcaballowasa) en Roblox, eso nos motiva a seguir subiendo contenido premium y gratuito para todos ustedes.\n\n¡Gracias por ser parte de la comunidad JD y vamos por más!"; tCredits.Font = Enum.Font.GothamMedium; tCredits.TextSize = 15; tCredits.TextColor3 = Color3.fromRGB(220, 220, 220); tCredits.TextWrapped = true; tCredits.BackgroundTransparency = 1; tCredits.ZIndex = 23; tCredits.TextYAlignment = Enum.TextYAlignment.Top; tCredits.TextXAlignment = Enum.TextXAlignment.Left
+    local tCredits = Instance.new("TextLabel", pCredits); tCredits.Size = UDim2.new(0.95, 0, 0, 450); tCredits.Position = UDim2.new(0.02, 0, 0, 10); tCredits.Text = "JD SCRIPT SYSTEM\n\nEstado: VERSIÓN BETA\nCreador: juanelcaballowasa\n\n¡Bienvenidos al corazón del sistema JD! Este proyecto nace con la misión de ser el mejor compañero para tus partidas.\n\nAún estamos en desarrollo constante. Nos ayudaría un mundo si sigues al creador (juanelcaballowasa) en Roblox.\n\n¡Gracias por ser parte de la comunidad JD!"; tCredits.Font = Enum.Font.GothamMedium; tCredits.TextSize = 15; tCredits.TextColor3 = Color3.fromRGB(220, 220, 220); tCredits.TextWrapped = true; tCredits.BackgroundTransparency = 1; tCredits.ZIndex = 23; tCredits.TextYAlignment = Enum.TextYAlignment.Top; tCredits.TextXAlignment = Enum.TextXAlignment.Left
 
     -- 4. MARCO DE CONFIRMACIÓN
     local confirmFrame = Instance.new("Frame", sg); confirmFrame.Size = UDim2.new(0, 300, 0, 150); confirmFrame.Position = UDim2.new(0.5, -150, 0.5, -75); confirmFrame.BackgroundColor3 = Color3.fromRGB(15, 15, 18); confirmFrame.Visible = false; confirmFrame.ZIndex = 100
@@ -94,7 +95,7 @@ local function IniciarTodo()
     btnScripts.MouseButton1Click:Connect(function() pScripts.Visible = true; pCredits.Visible = false; btnScripts.BackgroundColor3 = Color3.fromRGB(60, 0, 0); btnCredits.BackgroundColor3 = Color3.fromRGB(30, 30, 30) end)
     btnCredits.MouseButton1Click:Connect(function() pScripts.Visible = false; pCredits.Visible = true; btnCredits.BackgroundColor3 = Color3.fromRGB(60, 0, 0); btnScripts.BackgroundColor3 = Color3.fromRGB(30, 30, 30) end)
 
-    -- LÓGICA DE CIERRE Y DRAG (SISTEMA OFICIAL)
+    -- LÓGICA DE CIERRE Y DRAG
     local closeBtn = Instance.new("TextButton", mainFrame); closeBtn.Size = UDim2.new(0, 40, 0, 40); closeBtn.Position = UDim2.new(1, -45, 0, 5); closeBtn.Text = "-"; closeBtn.Font = Enum.Font.GothamBold; closeBtn.TextSize = 45; closeBtn.TextColor3 = Color3.fromRGB(255, 0, 0); closeBtn.BackgroundTransparency = 1; closeBtn.ZIndex = 30
     local dragging, dragStart, startPos, movido = false, nil, nil, false
     mainButton.InputBegan:Connect(function(input) if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then dragging = true; movido = false; dragStart = input.Position; startPos = mainButton.Position end end)
