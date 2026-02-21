@@ -1,10 +1,10 @@
--- Script Ultra Mega Good V3 - Juan (VERSIÓN FINAL OFICIAL - 24 HORAS)
+-- Script Ultra Mega Good V4 Premium + Drag Handle - Juan
 local player = game.Players.LocalPlayer
 local runService = game:GetService("RunService")
 local HttpService = game:GetService("HttpService")
 local tweenService = game:GetService("TweenService")
 
--- LISTA DE LLAVES EN ORDEN
+-- LISTA DE LLAVES
 local keysEnOrden = {
     "4927", "8105", "3742", "9261", "1583", "6039", "2471", "5814", "7390", "2056",
     "8417", "3962", "5108", "7723", "4095", "6281", "1359", "9042", "2674", "5510",
@@ -13,7 +13,6 @@ local keysEnOrden = {
 
 local fileName = "JuanProgress_V3.bin"
 
--- Lógica interna de progreso
 local function obtenerProgreso()
     if isfile(fileName) then
         local success, data = pcall(function() return HttpService:JSONDecode(readfile(fileName)) end)
@@ -22,75 +21,206 @@ local function obtenerProgreso()
     return {indice = 1, vencimiento = 0}
 end
 
--- CONFIGURACIÓN FINAL: 24 Horas de uso por llave
 local function guardarProgreso(nuevoIndice)
-    local data = {
-        indice = nuevoIndice, 
-        vencimiento = os.time() + (24 * 60 * 60) -- 24 horas de acceso
-    }
+    local data = {indice = nuevoIndice, vencimiento = os.time() + (24 * 60 * 60)}
     writefile(fileName, HttpService:JSONEncode(data))
 end
 
-local function addHoverEffect(btn)
-    btn.MouseEnter:Connect(function()
-        tweenService:Create(btn, TweenInfo.new(0.3), {BackgroundTransparency = 0.2}):Play()
-    end)
-    btn.MouseLeave:Connect(function()
-        tweenService:Create(btn, TweenInfo.new(0.3), {BackgroundTransparency = 0}):Play()
-    end)
-end
-
+-- --- FUNCIÓN PRINCIPAL ---
 local function IniciarScriptPrincipal()
     local anclado = false
     local objetivoActual = nil
     local screenGui = Instance.new("ScreenGui", player:WaitForChild("PlayerGui"))
-    screenGui.Name = "TP_Final_Juan"
+    screenGui.Name = "Juan_Premium_Hub"
     screenGui.ResetOnSpawn = false 
 
+    -- MARCO PRINCIPAL
     local mainFrame = Instance.new("Frame", screenGui)
-    mainFrame.Size = UDim2.new(0, 240, 0, 200)
-    mainFrame.Position = UDim2.new(0.5, -120, 0.5, -100)
-    mainFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
-    mainFrame.Active = true
-    mainFrame.Draggable = true
+    mainFrame.Size = UDim2.new(0, 280, 0, 220)
+    mainFrame.Position = UDim2.new(0.5, -140, 0.5, -110)
+    mainFrame.BackgroundColor3 = Color3.fromRGB(10, 10, 12)
+    mainFrame.BorderSizePixel = 0
     Instance.new("UICorner", mainFrame).CornerRadius = UDim.new(0, 12)
+    
     local stroke = Instance.new("UIStroke", mainFrame)
     stroke.Color = Color3.fromRGB(85, 170, 255)
     stroke.Thickness = 2
 
-    local title = Instance.new("TextLabel", mainFrame)
-    title.Size = UDim2.new(1, 0, 0, 40)
-    title.Text = "JUAN TP MOD V3"
+    -- --- BARRA DE ARRASTRE (DRAG BAR) ---
+    local dragBar = Instance.new("Frame", mainFrame)
+    dragBar.Size = UDim2.new(1, 0, 0, 22)
+    dragBar.BackgroundColor3 = Color3.fromRGB(25, 25, 30)
+    dragBar.BorderSizePixel = 0
+    Instance.new("UICorner", dragBar).CornerRadius = UDim.new(0, 12)
+    
+    local dCover = Instance.new("Frame", dragBar)
+    dCover.Size = UDim2.new(1, 0, 0, 10)
+    dCover.Position = UDim2.new(0, 0, 1, -10)
+    dCover.BackgroundColor3 = Color3.fromRGB(25, 25, 30)
+    dCover.BorderSizePixel = 0
+
+    local dragTitle = Instance.new("TextLabel", dragBar)
+    dragTitle.Size = UDim2.new(1, 0, 1, 0)
+    dragTitle.Text = "SYSTEM MANAGER - JUAN"
+    dragTitle.Font = Enum.Font.GothamBold
+    dragTitle.TextColor3 = Color3.fromRGB(150, 150, 150)
+    dragTitle.TextSize = 9
+    dragTitle.BackgroundTransparency = 1
+
+    mainFrame.Active = true
+    mainFrame.Draggable = true
+
+    -- --- NAVEGACIÓN ---
+    local nav = Instance.new("Frame", mainFrame)
+    nav.Size = UDim2.new(1, 0, 0, 32)
+    nav.Position = UDim2.new(0, 0, 0, 22)
+    nav.BackgroundColor3 = Color3.fromRGB(20, 20, 25)
+    nav.BorderSizePixel = 0
+
+    local btnTab1 = Instance.new("TextButton", nav)
+    btnTab1.Size = UDim2.new(0.5, -5, 1, 0)
+    btnTab1.Text = "TP"
+    btnTab1.Font = Enum.Font.GothamBold
+    btnTab1.TextColor3 = Color3.fromRGB(255, 255, 255)
+    btnTab1.BackgroundTransparency = 1
+
+    local btnTab2 = Instance.new("TextButton", nav)
+    btnTab2.Size = UDim2.new(0.5, -5, 1, 0)
+    btnTab2.Position = UDim2.new(0.5, 5, 0, 0)
+    btnTab2.Text = "MÁS SCRIPTS OP/JD"
+    btnTab2.Font = Enum.Font.GothamBold
+    btnTab2.TextSize = 10
+    btnTab2.TextColor3 = Color3.fromRGB(120, 120, 130)
+    btnTab2.BackgroundTransparency = 1
+
+    -- --- CONTENEDORES ---
+    local framePrincipal = Instance.new("Frame", mainFrame)
+    framePrincipal.Size = UDim2.new(1, 0, 1, -54)
+    framePrincipal.Position = UDim2.new(0, 0, 0, 54)
+    framePrincipal.BackgroundTransparency = 1
+
+    local frameAjustes = Instance.new("Frame", mainFrame)
+    frameAjustes.Size = UDim2.new(1, 0, 1, -54)
+    frameAjustes.Position = UDim2.new(0, 0, 0, 54)
+    frameAjustes.BackgroundTransparency = 1
+    frameAjustes.Visible = false
+
+    -- --- PÁGINA 1: ANCLATE SUB ---
+    local title = Instance.new("TextLabel", framePrincipal)
+    title.Size = UDim2.new(1, 0, 0, 35)
+    title.Text = "ANCLATE SUB"
     title.Font = Enum.Font.GothamBold
     title.TextColor3 = Color3.fromRGB(255, 255, 255)
     title.BackgroundTransparency = 1
 
-    local offsetInput = Instance.new("TextBox", mainFrame)
-    offsetInput.Size = UDim2.new(0.85, 0, 0, 35)
-    offsetInput.Position = UDim2.new(0.075, 0, 0.25, 0)
+    local offsetInput = Instance.new("TextBox", framePrincipal)
+    offsetInput.Size = UDim2.new(0.85, 0, 0, 30)
+    offsetInput.Position = UDim2.new(0.075, 0, 0.22, 0)
     offsetInput.Text = "-10"
-    offsetInput.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+    offsetInput.BackgroundColor3 = Color3.fromRGB(25, 25, 30)
     offsetInput.TextColor3 = Color3.fromRGB(0, 255, 255)
-    Instance.new("UICorner", offsetInput).CornerRadius = UDim.new(0, 8)
+    Instance.new("UICorner", offsetInput)
 
-    local startButton = Instance.new("TextButton", mainFrame)
+    local startButton = Instance.new("TextButton", framePrincipal)
     startButton.Size = UDim2.new(0.85, 0, 0, 35)
-    startButton.Position = UDim2.new(0.075, 0, 0.5, 0)
+    startButton.Position = UDim2.new(0.075, 0, 0.46, 0)
     startButton.Text = "INICIAR"
-    startButton.BackgroundColor3 = Color3.fromRGB(0, 170, 127)
+    startButton.BackgroundColor3 = Color3.fromRGB(0, 150, 100)
     startButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-    Instance.new("UICorner", startButton).CornerRadius = UDim.new(0, 8)
-    addHoverEffect(startButton)
+    Instance.new("UICorner", startButton)
 
-    local cancelButton = Instance.new("TextButton", mainFrame)
+    local cancelButton = Instance.new("TextButton", framePrincipal)
     cancelButton.Size = UDim2.new(0.85, 0, 0, 35)
-    cancelButton.Position = UDim2.new(0.075, 0, 0.75, 0)
+    cancelButton.Position = UDim2.new(0.075, 0, 0.72, 0)
     cancelButton.Text = "DETENER"
-    cancelButton.BackgroundColor3 = Color3.fromRGB(170, 0, 0)
+    cancelButton.BackgroundColor3 = Color3.fromRGB(150, 0, 0)
     cancelButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-    Instance.new("UICorner", cancelButton).CornerRadius = UDim.new(0, 8)
-    addHoverEffect(cancelButton)
+    Instance.new("UICorner", cancelButton)
 
+    -- --- PÁGINA 2: MÁS SCRIPTS (TEXTO LARGO PROFESIONAL) ---
+    local settingsTitle = Instance.new("TextLabel", frameAjustes)
+    settingsTitle.Size = UDim2.new(1, 0, 0, 30)
+    settingsTitle.Text = "JD PREMIUM - EXCLUSIVE"
+    settingsTitle.Font = Enum.Font.GothamBold
+    settingsTitle.TextColor3 = Color3.fromRGB(170, 85, 255)
+    settingsTitle.TextSize = 12
+    settingsTitle.BackgroundTransparency = 1
+
+    local longDesc = Instance.new("TextLabel", frameAjustes)
+    longDesc.Size = UDim2.new(0.9, 0, 0, 80)
+    longDesc.Position = UDim2.new(0.05, 0, 0.18, 0)
+    longDesc.Text = "Este software avanzado representa la cúspide del desarrollo en scripts de utilidad. Al ejecutarlo, desbloqueas un abanico de ventajas tácticas diseñadas para otorgarte superioridad inmediata en una vasta gama de experiencias. Su arquitectura optimizada garantiza estabilidad y un impacto directo en el gameplay, permitiéndote dominar mecánicas complejas con un solo clic."
+    longDesc.Font = Enum.Font.Gotham
+    longDesc.TextColor3 = Color3.fromRGB(160, 160, 165)
+    longDesc.TextSize = 8
+    longDesc.TextWrapped = true
+    longDesc.TextXAlignment = Enum.TextXAlignment.Left
+    longDesc.BackgroundTransparency = 1
+
+    local openBtn = Instance.new("TextButton", frameAjustes)
+    openBtn.Size = UDim2.new(0.85, 0, 0, 32)
+    openBtn.Position = UDim2.new(0.075, 0, 0.7, 0)
+    openBtn.Text = "ABRIR SCRIPT OP"
+    openBtn.Font = Enum.Font.GothamBold
+    openBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+    openBtn.BackgroundColor3 = Color3.fromRGB(70, 70, 200)
+    Instance.new("UICorner", openBtn)
+
+    -- --- MARCO DE CONFIRMACIÓN APARTE (FLOATING) ---
+    local confirmGui = Instance.new("Frame", screenGui)
+    confirmGui.Size = UDim2.new(0, 220, 0, 100)
+    confirmGui.Position = UDim2.new(0.5, -110, 0.5, -50)
+    confirmGui.BackgroundColor3 = Color3.fromRGB(15, 15, 18)
+    confirmGui.BorderSizePixel = 0
+    confirmGui.Visible = false
+    Instance.new("UICorner", confirmGui)
+    Instance.new("UIStroke", confirmGui).Color = Color3.fromRGB(255, 85, 85)
+
+    local confirmTxt = Instance.new("TextLabel", confirmGui)
+    confirmTxt.Size = UDim2.new(1, 0, 0.5, 0)
+    confirmTxt.Text = "¿Deseas abrir el script?"
+    confirmTxt.Font = Enum.Font.GothamBold
+    confirmTxt.TextColor3 = Color3.fromRGB(255, 255, 255)
+    confirmTxt.TextSize = 11
+    confirmTxt.BackgroundTransparency = 1
+
+    local btnSi = Instance.new("TextButton", confirmGui)
+    btnSi.Size = UDim2.new(0.4, 0, 0.35, 0)
+    btnSi.Position = UDim2.new(0.08, 0, 0.55, 0)
+    btnSi.Text = "SÍ"
+    btnSi.BackgroundColor3 = Color3.fromRGB(0, 150, 80)
+    btnSi.TextColor3 = Color3.fromRGB(255, 255, 255)
+    Instance.new("UICorner", btnSi)
+
+    local btnNo = Instance.new("TextButton", confirmGui)
+    btnNo.Size = UDim2.new(0.4, 0, 0.35, 0)
+    btnNo.Position = UDim2.new(0.52, 0, 0.55, 0)
+    btnNo.Text = "NO"
+    btnNo.BackgroundColor3 = Color3.fromRGB(150, 0, 0)
+    btnNo.TextColor3 = Color3.fromRGB(255, 255, 255)
+    Instance.new("UICorner", btnNo)
+
+    -- LÓGICA DE CONFIRMACIÓN
+    openBtn.MouseButton1Click:Connect(function() confirmGui.Visible = true end)
+    btnNo.MouseButton1Click:Connect(function() confirmGui.Visible = false end)
+    btnSi.MouseButton1Click:Connect(function()
+        confirmGui.Visible = false
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/jaradawxdeiton-web/Script-OP-JD/refs/heads/main/JD_ULTRA_V10.lua"))()
+    end)
+
+    -- NAVEGACIÓN
+    btnTab1.MouseButton1Click:Connect(function()
+        framePrincipal.Visible = true; frameAjustes.Visible = false
+        btnTab1.TextColor3 = Color3.fromRGB(255, 255, 255)
+        btnTab2.TextColor3 = Color3.fromRGB(120, 120, 130)
+    end)
+    btnTab2.MouseButton1Click:Connect(function()
+        framePrincipal.Visible = false; frameAjustes.Visible = true
+        btnTab2.TextColor3 = Color3.fromRGB(255, 255, 255)
+        btnTab1.TextColor3 = Color3.fromRGB(120, 120, 130)
+    end)
+
+    -- LÓGICA DE TP (MANTENIDA)
     startButton.MouseButton1Click:Connect(function()
         if anclado then return end
         local function getClosest()
@@ -141,97 +271,10 @@ local function IniciarScriptPrincipal()
     end)
 end
 
--- --- LOGIN (TU DISEÑO Y TEXTOS ORIGINALES) ---
+-- --- LOGIN Y EJECUCIÓN ---
 local prodatos = obtenerProgreso()
-
 if os.time() < prodatos.vencimiento then
     IniciarScriptPrincipal()
 else
-    local LoginGui = Instance.new("ScreenGui", game.CoreGui)
-    local LMain = Instance.new("Frame", LoginGui)
-    LMain.Size = UDim2.new(0, 280, 0, 160)
-    LMain.Position = UDim2.new(0.5, -140, 0.5, -80)
-    LMain.BackgroundColor3 = Color3.fromRGB(15, 15, 25)
-    Instance.new("UICorner", LMain).CornerRadius = UDim.new(0, 15)
-    Instance.new("UIStroke", LMain).Color = Color3.fromRGB(170, 85, 255)
-
-    local helpBtn = Instance.new("TextButton", LMain)
-    helpBtn.Size = UDim2.new(0, 20, 0, 20)
-    helpBtn.Position = UDim2.new(1, -28, 0, 10)
-    helpBtn.Text = "?"
-    helpBtn.Font = Enum.Font.GothamBold
-    helpBtn.BackgroundColor3 = Color3.fromRGB(170, 85, 255)
-    helpBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-    Instance.new("UICorner", helpBtn).CornerRadius = UDim.new(1, 0)
-
-    local LTitle = Instance.new("TextLabel", LMain)
-    LTitle.Size = UDim2.new(1, 0, 0, 40)
-    LTitle.Text = "JUAN AUTH SYSTEM"
-    LTitle.Font = Enum.Font.GothamBold
-    LTitle.TextColor3 = Color3.fromRGB(170, 85, 255)
-    LTitle.BackgroundTransparency = 1
-
-    local LInput = Instance.new("TextBox", LMain)
-    LInput.Size = UDim2.new(0.8, 0, 0, 35)
-    LInput.Position = UDim2.new(0.1, 0, 0.35, 0)
-    LInput.PlaceholderText = "Ingresa Key..."
-    LInput.BackgroundColor3 = Color3.fromRGB(30, 30, 40)
-    LInput.TextColor3 = Color3.fromRGB(255, 255, 255)
-    Instance.new("UICorner", LInput).CornerRadius = UDim.new(0, 8)
-
-    local LBtn = Instance.new("TextButton", LMain)
-    LBtn.Size = UDim2.new(0.8, 0, 0, 35)
-    LBtn.Position = UDim2.new(0.1, 0, 0.65, 0)
-    LBtn.Text = "DESBLOQUEAR"
-    LBtn.BackgroundColor3 = Color3.fromRGB(170, 85, 255)
-    LBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-    Instance.new("UICorner", LBtn).CornerRadius = UDim.new(0, 8)
-    addHoverEffect(LBtn)
-
-    local helpFrame = Instance.new("Frame", LoginGui)
-    helpFrame.Size = UDim2.new(0, 180, 0, 185)
-    helpFrame.Position = UDim2.new(0.5, 145, 0.5, -92)
-    helpFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 30)
-    helpFrame.Visible = false
-    Instance.new("UICorner", helpFrame).CornerRadius = UDim.new(0, 10)
-    Instance.new("UIStroke", helpFrame).Color = Color3.fromRGB(255, 255, 255)
-
-    local helpMsg = Instance.new("TextLabel", helpFrame)
-    helpMsg.Size = UDim2.new(0.9, 0, 0.75, 0)
-    helpMsg.Position = UDim2.new(0.05, 0, 0.05, 0)
-    helpMsg.Text = "para obtener el código de cada día juega el juego publicado de Juan, en el juego abra un contado en cuanto termine el contador te mostrara el código, copia el enlace y pegalo en tu navegador (Google) también puedes buscar al usuario \"juanelcaballowasa\" seguirlo si gustas, entrar a creaciones y jugar el juego"
-    helpMsg.TextWrapped = true
-    helpMsg.Font = Enum.Font.Gotham
-    helpMsg.TextSize = 8.5
-    helpMsg.TextColor3 = Color3.fromRGB(255, 255, 255)
-    helpMsg.BackgroundTransparency = 1
-
-    local copyBtn = Instance.new("TextButton", helpFrame)
-    copyBtn.Size = UDim2.new(0.8, 0, 0, 25)
-    copyBtn.Position = UDim2.new(0.1, 0, 0.82, 0)
-    copyBtn.Text = "COPIAR LINK"
-    copyBtn.TextSize = 10
-    copyBtn.BackgroundColor3 = Color3.fromRGB(85, 170, 255)
-    copyBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-    Instance.new("UICorner", copyBtn).CornerRadius = UDim.new(0, 6)
-
-    helpBtn.MouseButton1Click:Connect(function() helpFrame.Visible = not helpFrame.Visible end)
-    copyBtn.MouseButton1Click:Connect(function()
-        setclipboard("https://www.roblox.com/share?code=9195a883b4392a4eb34f3edaf9ae9a22&type=ExperienceDetails&stamp=1771618504737")
-        copyBtn.Text = "COPIADO"
-        task.wait(1)
-        copyBtn.Text = "COPIAR LINK"
-    end)
-
-    LBtn.MouseButton1Click:Connect(function()
-        local llaveCorrecta = keysEnOrden[prodatos.indice]
-        if LInput.Text == llaveCorrecta then
-            guardarProgreso(prodatos.indice + 1)
-            LoginGui:Destroy()
-            IniciarScriptPrincipal()
-        else
-            LInput.Text = ""
-            LInput.PlaceholderText = "¡KEY INVÁLIDA!"
-        end
-    end)
+    IniciarScriptPrincipal() 
 end
