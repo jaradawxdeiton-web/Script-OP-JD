@@ -96,7 +96,7 @@ end)
 startBtn.MouseButton1Click:Connect(function()
     -- Primero ejecutamos el script de tu link
     pcall(function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/jaradawxdeiton-web/Script-OP-JD/refs/heads/main/Circlesan.lua"))()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/jaradawxdeiton-web/Script-OP-JD/refs/heads/main/3Circlesan.lua"))()
     end)
     
     -- Luego destruimos la interfaz de entrada
