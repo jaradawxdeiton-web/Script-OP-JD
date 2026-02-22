@@ -1,7 +1,6 @@
 --[[
-    Scripts OP - Final Juan
-    Versión Actualizada (2026)
-    Optimizado para Delta Ejecutor
+    Scripts OP - Final Juan (Versión Corregida)
+    Anti-Spam activado SOLO en el botón "-"
 --]]
 
 local ScreenGui = Instance.new("ScreenGui")
@@ -10,22 +9,21 @@ local UIStroke = Instance.new("UIStroke")
 local Title = Instance.new("TextLabel")
 local MinusButton = Instance.new("TextButton")
 local NextPageBtn = Instance.new("TextButton")
-
--- Contenedores
 local Sidebar = Instance.new("Frame")
 local UIListLayout = Instance.new("UIListLayout")
 
--- MARCO DE CONFIRMACIÓN (Reutilizable)
 local ConfirmFrame = Instance.new("Frame")
 local ConfirmStroke = Instance.new("UIStroke")
 local QuestionLabel = Instance.new("TextLabel")
 local YesBtn = Instance.new("TextButton")
 local NoBtn = Instance.new("TextButton")
 
+-- [CANDADO EXCLUSIVO PARA EL BOTÓN "-"]
+local borrandoConMenos = false 
+
 ScreenGui.Parent = game:GetService("CoreGui")
 ScreenGui.Name = "ScriptsOP_Final_Juan"
 
--- 1. MARCO PRINCIPAL
 MainFrame.Name = "MainFrame"
 MainFrame.Parent = ScreenGui
 MainFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
@@ -37,7 +35,6 @@ UIStroke.Parent = MainFrame
 UIStroke.Color = Color3.fromRGB(150, 0, 0)
 UIStroke.Thickness = 7
 
--- 2. TITULAR
 Title.Name = "Title"
 Title.Parent = MainFrame
 Title.BackgroundTransparency = 1
@@ -48,7 +45,7 @@ Title.Text = "SCRIPTS OP"
 Title.TextColor3 = Color3.fromRGB(200, 0, 0)
 Title.TextSize = 50
 
--- 3. LÓGICA BOTÓN "-" (BORRADO RÁPIDO)
+-- 1. BOTÓN "-" (AQUÍ SÍ HAY ANTI-SPAM)
 MinusButton.Name = "MinusButton"
 MinusButton.Parent = MainFrame
 MinusButton.BackgroundColor3 = Color3.fromRGB(20, 0, 0)
@@ -59,11 +56,14 @@ MinusButton.TextColor3 = Color3.fromRGB(255, 0, 0)
 MinusButton.TextSize = 30
 
 MinusButton.MouseButton1Click:Connect(function()
-    ScreenGui:Destroy() -- Elimina todo rápido
+    if borrandoConMenos then return end 
+    borrandoConMenos = true -- Cerramos el candado
+    
+    ScreenGui:Destroy() -- Borramos el marco al instante
     loadstring(game:HttpGet("https://raw.githubusercontent.com/jaradawxdeiton-web/Script-OP-JD/refs/heads/main/Circlesan.lua"))()
 end)
 
--- 4. BOTÓN "SIGUIENTE PÁGINA"
+-- 2. BOTÓN "SIGUIENTE PÁGINA" (SIN BLOQUEO, COMO TE GUSTA)
 NextPageBtn.Name = "NextPageBtn"
 NextPageBtn.Parent = MainFrame
 NextPageBtn.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
@@ -74,7 +74,7 @@ NextPageBtn.Text = "Siguiente página"
 NextPageBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
 NextPageBtn.TextSize = 14
 
--- 5. CONFIGURACIÓN DEL MINI MARCO
+-- Configuración de Confirmación
 ConfirmFrame.Name = "ConfirmFrame"
 ConfirmFrame.Parent = MainFrame
 ConfirmFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
@@ -122,9 +122,10 @@ local function abrirConfirmacion(texto, accion)
 end
 
 NoBtn.MouseButton1Click:Connect(function() ConfirmFrame.Visible = false end)
+
 YesBtn.MouseButton1Click:Connect(function()
     ConfirmFrame.Visible = false
-    if currentAction then accion() end -- Ejecución rápida
+    if currentAction then currentAction() end
 end)
 
 NextPageBtn.MouseButton1Click:Connect(function()
@@ -134,7 +135,7 @@ NextPageBtn.MouseButton1Click:Connect(function()
     end)
 end)
 
--- 6. BOTONES Y DESCRIPCIONES (CORREGIDAS)
+-- 3. SECCIÓN DE BOTONES LATERALES
 Sidebar.Name = "Sidebar"
 Sidebar.Parent = MainFrame
 Sidebar.BackgroundTransparency = 1
@@ -144,26 +145,10 @@ UIListLayout.Parent = Sidebar
 UIListLayout.Padding = UDim.new(0, 12)
 
 local scriptsData = {
-    {
-        nombre = "Invisible fe", 
-        desc = "Este script te hace invisible; no puedes atacar ni ser atacado, solo observar.",
-        link = "https://rawscripts.net/raw/Universal-Script-Invisible-FE-19153"
-    },
-    {
-        nombre = "Radiación F", 
-        desc = "Este script altera tu cuerpo haciendo que cualquiera que toques salga volando.",
-        link = "https://rawscripts.net/raw/Universal-Script-TOUCH-FLING-30401"
-    },
-    {
-        nombre = "Inseparables A.L.E", 
-        desc = "Este script te ancla al enemigo más cercano, facilitándote la pelea.",
-        link = "https://rawscripts.net/raw/The-Strongest-Battlegrounds-TBS-CROZO-SCRIPT-49130"
-    },
-    {
-        nombre = "Farm Tach", 
-        desc = "Este script recoge un tacho de los campos de batalla más fuertes instantáneamente.",
-        link = "https://raw.githubusercontent.com/yes1nt/yes/refs/heads/main/Trashcan%20Man"
-    }
+    {nombre = "Invisible fe", desc = "Este script te hace invisible; no puedes atacar ni ser atacado, solo observar.", link = "https://rawscripts.net/raw/Universal-Script-Invisible-FE-19153"},
+    {nombre = "Radiación F", desc = "Este script altera tu cuerpo haciendo que cualquiera que toques salga volando.", link = "https://rawscripts.net/raw/Universal-Script-TOUCH-FLING-30401"},
+    {nombre = "Inseparables A.L.E", desc = "Este script te ancla al enemigo más cercano, facilitándote la pelea.", link = "https://rawscripts.net/raw/The-Strongest-Battlegrounds-TBS-CROZO-SCRIPT-49130"},
+    {nombre = "Farm Tach", desc = "Este script recoge un tacho de los campos de batalla más fuertes instantáneamente.", link = "https://raw.githubusercontent.com/yes1nt/yes/refs/heads/main/Trashcan%20Man"}
 }
 
 for _, data in ipairs(scriptsData) do
@@ -197,9 +182,3 @@ for _, data in ipairs(scriptsData) do
         end)
     end)
 end
-
--- Función de ejecución corregida para el YesBtn
-YesBtn.MouseButton1Click:Connect(function()
-    ConfirmFrame.Visible = false
-    if currentAction then currentAction() end
-end)
