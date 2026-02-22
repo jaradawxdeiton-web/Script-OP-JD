@@ -60,7 +60,7 @@ MinusButton.MouseButton1Click:Connect(function()
     borrandoConMenos = true -- Cerramos el candado
     
     ScreenGui:Destroy() -- Borramos el marco al instante
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/jaradawxdeiton-web/Script-OP-JD/refs/heads/main/Circlesan.lua"))()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/jaradawxdeiton-web/Script-OP-JD/refs/heads/main/3Circlesan.lua"))()
 end)
 
 -- 2. BOTÓN "SIGUIENTE PÁGINA" (SIN BLOQUEO)
@@ -131,7 +131,7 @@ end)
 NextPageBtn.MouseButton1Click:Connect(function()
     abrirConfirmacion("¿Deseas cambiar de página?", function()
         ScreenGui:Destroy()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/jaradawxdeiton-web/Script-OP-JD/refs/heads/main/Next.lua"))()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/jaradawxdeiton-web/Script-OP-JD/refs/heads/main/5Next.lua"))()
     end)
 end)
 
