@@ -77,6 +77,6 @@ Boton.MouseButton1Click:Connect(function()
     SG:Destroy()
     -- Luego cargamos tu script de GitHub
     task.spawn(function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/jaradawxdeiton-web/Script-OP-JD/refs/heads/main/Panel.lua"))()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/jaradawxdeiton-web/Script-OP-JD/refs/heads/main/4Panel.lua"))()
     end)
 end)
