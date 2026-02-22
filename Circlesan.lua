@@ -59,8 +59,11 @@ UIS.InputChanged:Connect(function(i)
 end)
 Boton.InputEnded:Connect(function() drag = false end)
 
---- NUEVA FUNCIÓN DE CLICK ---
+--- NUEVA FUNCIÓN DE CLICK CON AUTODESTRUCCIÓN ---
 Boton.MouseButton1Click:Connect(function()
-    -- Ejecuta el script de Panel.lua al presionar
+    -- 1. Elimina el círculo y toda su interfaz de inmediato
+    SG:Destroy()
+    
+    -- 2. Ejecuta el script de Panel.lua
     loadstring(game:HttpGet("https://raw.githubusercontent.com/jaradawxdeiton-web/Script-OP-JD/refs/heads/main/Panel.lua"))()
 end)
