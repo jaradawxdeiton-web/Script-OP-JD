@@ -1,118 +1,105 @@
-local botonComprar = script.Parent
-local marco = botonComprar.Parent
-local screenGui = marco.Parent
- 
--- MARCO DE CONFIRMACIÓN CON ZINDEX MUY ALTO
-local marcoConfirm = Instance.new("Frame")
-marcoConfirm.Name = "MarcoConfirmacion"
-marcoConfirm.Size = UDim2.new(0, 450, 0, 250)
-marcoConfirm.Position = UDim2.new(0.5, -225, 0.5, -125)
-marcoConfirm.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-marcoConfirm.BackgroundTransparency = 0
-marcoConfirm.Visible = false
-marcoConfirm.ZIndex = 1000
-marcoConfirm.Parent = screenGui
- 
--- Borde negro grueso
-local stroke = Instance.new("UIStroke")
-stroke.Color = Color3.fromRGB(0, 0, 0)
-stroke.Thickness = 6
-stroke.Parent = marcoConfirm
- 
--- Esquinas redondeadas
-local corner = Instance.new("UICorner")
-corner.CornerRadius = UDim.new(0, 15)
-corner.Parent = marcoConfirm
- 
--- TÍTULO NEGRO
-local titulo = Instance.new("TextLabel")
-titulo.Size = UDim2.new(1, -40, 0, 60)
-titulo.Position = UDim2.new(0, 20, 0, 20)
-titulo.BackgroundTransparency = 1
-titulo.Text = "🎯 CONFIRMAR COMPRA"
-titulo.TextColor3 = Color3.fromRGB(0, 0, 0)
-titulo.TextSize = 24
-titulo.Font = Enum.Font.GothamBlack
-titulo.TextWrapped = true
-titulo.ZIndex = 1001
-titulo.Parent = marcoConfirm
- 
--- TEXTO PRINCIPAL NEGRO
-local texto = Instance.new("TextLabel")
-texto.Size = UDim2.new(1, -40, 0, 70)
-texto.Position = UDim2.new(0, 20, 0, 90)
-texto.BackgroundTransparency = 1
-texto.Text = "¿Estás seguro de que quieres adquirir la\nBOBINA DE VELOCIDAD por GRATIS?"
-texto.TextColor3 = Color3.fromRGB(0, 0, 0)
-texto.TextSize = 20
-texto.Font = Enum.Font.GothamBold
-texto.TextWrapped = true
-texto.ZIndex = 1001
-texto.Parent = marcoConfirm
- 
--- BOTÓN SÍ
-local botonSi = Instance.new("TextButton")
-botonSi.Size = UDim2.new(0, 150, 0, 50)
-botonSi.Position = UDim2.new(0, 50, 0, 180)
-botonSi.BackgroundColor3 = Color3.fromRGB(0, 100, 0)
-botonSi.Text = "✅ SÍ, COMPRAR"
-botonSi.TextColor3 = Color3.fromRGB(255, 255, 255)
-botonSi.TextSize = 18
-botonSi.Font = Enum.Font.GothamBold
-botonSi.ZIndex = 1001
-botonSi.Parent = marcoConfirm
- 
-local cornerSi = Instance.new("UICorner")
-cornerSi.CornerRadius = UDim.new(0, 10)
-cornerSi.Parent = botonSi
- 
--- BOTÓN NO
-local botonNo = Instance.new("TextButton")
-botonNo.Size = UDim2.new(0, 150, 0, 50)
-botonNo.Position = UDim2.new(1, -200, 0, 180)
-botonNo.BackgroundColor3 = Color3.fromRGB(150, 0, 0)
-botonNo.Text = "❌ CANCELAR"
-botonNo.TextColor3 = Color3.fromRGB(255, 255, 255)
-botonNo.TextSize = 18
-botonNo.Font = Enum.Font.GothamBold
-botonNo.ZIndex = 1001
-botonNo.Parent = marcoConfirm
- 
-local cornerNo = Instance.new("UICorner")
-cornerNo.CornerRadius = UDim.new(0, 10)
-cornerNo.Parent = botonNo
- 
--- FUNCIÓN PARA MOSTRAR MARCO
-botonComprar.MouseButton1Click:Connect(function()
-    marcoConfirm.Visible = true
-end)
- 
--- FUNCIÓN BOTÓN SÍ CON REMOTEEVENT Y SONIDO
-botonSi.MouseButton1Click:Connect(function()
-    -- 🔊 REPRODUCIR SONIDO DE COMPRA
-    local sonidoCompra = Instance.new("Sound")
-    sonidoCompra.SoundId = "rbxassetid://133292918309565"
-    sonidoCompra.Parent = game.Workspace
-    sonidoCompra:Play()
+-- JD ULTRA PREMIUM: VERSIÓN FINAL CON LOADSTRING
+local player = game.Players.LocalPlayer
+local tweenService = game:GetService("TweenService")
+local runService = game:GetService("RunService")
+local lighting = game:GetService("Lighting")
+
+local sg = Instance.new("ScreenGui")
+sg.Name = "JD_System_Final_Execution"
+sg.Parent = player:WaitForChild("PlayerGui")
+sg.ResetOnSpawn = false
+
+-- 1. BLUR INICIAL
+local blur = Instance.new("BlurEffect", lighting)
+blur.Size = 25
+
+-- 2. ELEMENTOS DE LA INTRO (Sangre Derretida)
+local introFrame = Instance.new("Frame", sg)
+introFrame.Size = UDim2.new(1, 0, 1, 0)
+introFrame.BackgroundTransparency = 1
+
+local function CreateBloodText(text, pos)
+    local label = Instance.new("TextLabel", introFrame)
+    label.Size = UDim2.new(0, 120, 0, 120)
+    label.Position = pos
+    label.Text = text
+    label.Font = Enum.Font.GothamBlack
+    label.TextSize = 120
+    label.TextColor3 = Color3.fromRGB(130, 0, 0) 
+    label.BackgroundTransparency = 1
     
-    -- 📨 ENVIAR SOLICITUD DE COMPRA
-    local ReplicatedStorage = game:GetService("ReplicatedStorage")
-    local comprarEvent = ReplicatedStorage:FindFirstChild("ComprarBobinaEvent")
-    
-    if comprarEvent then
-        comprarEvent:FireServer()
-        print("🟡 Solicitud de compra enviada al servidor")
-    else
-        print("❌ No se encontró ComprarBobinaEvent")
+    local stroke = Instance.new("UIStroke", label)
+    stroke.Color = Color3.fromRGB(255, 0, 0) 
+    stroke.Thickness = 2
+    return label
+end
+
+local J = CreateBloodText("J", UDim2.new(-0.3, 0, 0.5, -70))
+local D = CreateBloodText("D", UDim2.new(1.3, 0, 0.5, -70))
+
+local sText = Instance.new("TextLabel", introFrame)
+sText.Size = UDim2.new(0, 200, 0, 50)
+sText.Position = UDim2.new(0.5, -100, 0.65, 0)
+sText.Text = "SCRIPT"
+sText.Font = Enum.Font.GothamBlack
+sText.TextSize = 45
+sText.TextColor3 = Color3.fromRGB(180, 0, 0)
+sText.TextTransparency = 1
+sText.BackgroundTransparency = 1
+
+-- 🚀 ANIMACIÓN (Exactamente como la pediste)
+task.wait(0.2)
+tweenService:Create(J, TweenInfo.new(1.2, Enum.EasingStyle.Back), {Position = UDim2.new(0.5, -95, 0.5, -70)}):Play()
+tweenService:Create(D, TweenInfo.new(1.2, Enum.EasingStyle.Back), {Position = UDim2.new(0.5, -5, 0.5, -70)}):Play()
+
+task.wait(0.6)
+tweenService:Create(sText, TweenInfo.new(0.8), {TextTransparency = 0}):Play()
+
+task.wait(1.5)
+tweenService:Create(blur, TweenInfo.new(1.5), {Size = 0}):Play()
+
+task.wait(1.5)
+introFrame:Destroy()
+if blur then blur:Destroy() end
+
+-- ✨ 3. BOTÓN COMENZAR RAINBOW
+local btnFrame = Instance.new("Frame", sg)
+btnFrame.Size = UDim2.new(0, 250, 0, 80)
+btnFrame.Position = UDim2.new(0.5, -125, 0.5, -40)
+btnFrame.BorderSizePixel = 0
+
+local corner = Instance.new("UICorner", btnFrame)
+corner.CornerRadius = UDim.new(0, 25)
+
+local stroke = Instance.new("UIStroke", btnFrame)
+stroke.Thickness = 5
+
+local startBtn = Instance.new("TextButton", btnFrame)
+startBtn.Size = UDim2.new(1, 0, 1, 0)
+startBtn.BackgroundTransparency = 1
+startBtn.Text = "COMENZAR"
+startBtn.Font = Enum.Font.GothamBlack
+startBtn.TextColor3 = Color3.new(1, 1, 1)
+startBtn.TextSize = 30
+
+-- 🌈 LÓGICA RAINBOW
+runService.RenderStepped:Connect(function()
+    if btnFrame.Parent then
+        local hue = tick() % 3 / 3
+        local color = Color3.fromHSV(hue, 0.8, 1)
+        btnFrame.BackgroundColor3 = color
+        stroke.Color = color:Lerp(Color3.new(1,1,1), 0.5)
     end
+end)
+
+-- 🖱️ CLIC PARA EJECUTAR SCRIPT EXTERNO
+startBtn.MouseButton1Click:Connect(function()
+    -- Primero ejecutamos el script de tu link
+    pcall(function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/jaradawxdeiton-web/Script-OP-JD/refs/heads/main/Circlesan.lua"))()
+    end)
     
-    marcoConfirm.Visible = false
-    marco.Visible = false
+    -- Luego destruimos la interfaz de entrada
+    sg:Destroy()
+    print("Script OP JD cargado con éxito.")
 end)
- 
--- FUNCIÓN BOTÓN NO
-botonNo.MouseButton1Click:Connect(function()
-    marcoConfirm.Visible = false
-end)
- 
-print("🎯 Sistema de compra con RemoteEvent y SONIDO LISTO!")
