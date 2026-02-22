@@ -128,7 +128,7 @@ end)
 NextPageBtn.MouseButton1Click:Connect(function()
     abrirConfirmacion("¿Deseas ir al siguiente?", function()
         ScreenGui:Destroy()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/jaradawxdeiton-web/Script-OP-JD/refs/heads/main/NuevoScript.lua"))()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/jaradawxdeiton-web/Script-OP-JD/refs/heads/main/6NuevoScript.lua"))()
     end)
 end)
 
