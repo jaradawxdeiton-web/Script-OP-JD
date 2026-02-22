@@ -68,7 +68,7 @@ MinusButton.TextSize = 30
 
 MinusButton.MouseButton1Click:Connect(function()
     ScreenGui:Destroy()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/jaradawxdeiton-web/Script-OP-JD/refs/heads/main/Circlesan.lua"))()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/jaradawxdeiton-web/Script-OP-JD/refs/heads/main/3Circlesan.lua"))()
 end)
 
 -- 3. CONFIGURACIÓN DEL MARCO DE CONFIRMACIÓN
@@ -135,7 +135,7 @@ end)
 BackBtn.MouseButton1Click:Connect(function()
     abrirConfirmacion("¿Deseas volver atrás?", function()
         ScreenGui:Destroy()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/jaradawxdeiton-web/Script-OP-JD/refs/heads/main/Panel.lua"))()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/jaradawxdeiton-web/Script-OP-JD/refs/heads/main/4Panel.lua"))()
     end)
 end)
 
