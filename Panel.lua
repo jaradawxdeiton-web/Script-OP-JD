@@ -148,7 +148,7 @@ local scriptsData = {
     {nombre = "Invisible fe", desc = "Este script te hace invisible; no puedes atacar ni ser atacado, solo observar. Este script funciona para cualquier juego.", link = "https://rawscripts.net/raw/Universal-Script-Invisible-FE-19153"},
     {nombre = "Radiación F", desc = "Este script altera tu cuerpo haciendo que cualquiera que toques salga volando. Este script funciona para cualquier juego", link = "https://rawscripts.net/raw/Universal-Script-TOUCH-FLING-30401"},
     {nombre = "Inseparables A.L.E", desc = "Este script te ancla al enemigo más cercano, facilitándote la pelea. Este script funciona para cualquier juego", link = "https://rawscripts.net/raw/The-Strongest-Battlegrounds-TBS-CROZO-SCRIPT-49130"},
-    {nombre = "Farm Tach", desc = "Este script recoge un tacho de los campos de batalla más fuertes instantáneamente. Este script solo funciona para Los campos de batalla mas fuertes", link = "https://raw.githubusercontent.com/yes1nt/yes/refs/heads/main/Trashcan%20Man"}
+    {nombre = "Farm Tach", desc = "Este script recoge un tacho (basurero) instantáneamente. Este script solo funciona para Los campos de batalla mas fuertes", link = "https://raw.githubusercontent.com/yes1nt/yes/refs/heads/main/Trashcan%20Man"}
 }
 
 for _, data in ipairs(scriptsData) do
