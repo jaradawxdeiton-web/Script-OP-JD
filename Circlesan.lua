@@ -23,7 +23,7 @@ GradienteFondo.Color = ColorSequence.new({
 
 Boton.Text = "JD"
 Boton.TextColor3 = Color3.fromRGB(0, 255, 255) -- Celeste
-Boton.TextSize = 28 -- Texto ajustado al nuevo tamaño
+Boton.TextSize = 28 
 Boton.Font = Enum.Font.Creepster
 
 -- Hacerlo circular
@@ -58,3 +58,9 @@ UIS.InputChanged:Connect(function(i)
     end 
 end)
 Boton.InputEnded:Connect(function() drag = false end)
+
+--- NUEVA FUNCIÓN DE CLICK ---
+Boton.MouseButton1Click:Connect(function()
+    -- Ejecuta el script de Panel.lua al presionar
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/jaradawxdeiton-web/Script-OP-JD/refs/heads/main/Panel.lua"))()
+end)
