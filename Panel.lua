@@ -63,7 +63,7 @@ MinusButton.MouseButton1Click:Connect(function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/jaradawxdeiton-web/Script-OP-JD/refs/heads/main/Circlesan.lua"))()
 end)
 
--- 2. BOTÓN "SIGUIENTE PÁGINA" (SIN BLOQUEO, COMO TE GUSTA)
+-- 2. BOTÓN "SIGUIENTE PÁGINA" (SIN BLOQUEO)
 NextPageBtn.Name = "NextPageBtn"
 NextPageBtn.Parent = MainFrame
 NextPageBtn.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
@@ -172,7 +172,7 @@ for _, data in ipairs(scriptsData) do
     descLabel.Size = UDim2.new(1, -160, 1, 0)
     descLabel.Text = data.desc
     descLabel.TextColor3 = Color3.fromRGB(220, 220, 220)
-    descLabel.TextSize = 11
+    descLabel.TextSize = 9 -- TEXTO MÁS PEQUEÑO PARA QUE SE VEA BIEN
     descLabel.TextWrapped = true
     descLabel.TextXAlignment = Enum.TextXAlignment.Left
 
