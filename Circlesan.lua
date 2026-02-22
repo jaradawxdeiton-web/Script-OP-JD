@@ -5,28 +5,25 @@ local CoreGui = game:GetService("CoreGui")
 local SG = Instance.new("ScreenGui", CoreGui)
 local Boton = Instance.new("TextButton", SG)
 
--- 2. Configuración del Botón (Tamaño reducido a 65)
+-- 2. Configuración del Botón Principal (JD)
 Boton.Name = "BotonJD_Ajustado"
-Boton.Size = UDim2.new(0, 0, 0, 0) -- Inicio para animación
+Boton.Size = UDim2.new(0, 0, 0, 0) 
 Boton.Position = UDim2.new(0.5, 0, 0.5, 0)
 Boton.AnchorPoint = Vector2.new(0.5, 0.5)
 Boton.BorderSizePixel = 0
 Boton.AutoButtonColor = false
-
--- Fondo Negro, Rojo y Guindo
-local GradienteFondo = Instance.new("UIGradient", Boton)
-GradienteFondo.Color = ColorSequence.new({
-    ColorSequenceKeypoint.new(0, Color3.fromRGB(0, 0, 0)),     -- Negro
-    ColorSequenceKeypoint.new(0.5, Color3.fromRGB(200, 0, 0)), -- Rojo
-    ColorSequenceKeypoint.new(1, Color3.fromRGB(100, 0, 20))   -- Guindo
-})
-
 Boton.Text = "JD"
-Boton.TextColor3 = Color3.fromRGB(0, 255, 255) -- Celeste
+Boton.TextColor3 = Color3.fromRGB(0, 255, 255)
 Boton.TextSize = 28 
 Boton.Font = Enum.Font.Creepster
 
--- Hacerlo circular
+local GradienteFondo = Instance.new("UIGradient", Boton)
+GradienteFondo.Color = ColorSequence.new({
+    ColorSequenceKeypoint.new(0, Color3.fromRGB(0, 0, 0)),
+    ColorSequenceKeypoint.new(0.5, Color3.fromRGB(200, 0, 0)),
+    ColorSequenceKeypoint.new(1, Color3.fromRGB(100, 0, 20))
+})
+
 Instance.new("UICorner", Boton).CornerRadius = UDim.new(1, 0)
 
 -- 3. EL BORDE CIRCULAR NEGRO
@@ -37,33 +34,49 @@ BordeDecorado.Position = UDim2.new(0.5, 0, 0.5, 0)
 BordeDecorado.AnchorPoint = Vector2.new(0.5, 0.5)
 BordeDecorado.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
 BordeDecorado.ZIndex = 0
-
 Instance.new("UICorner", BordeDecorado).CornerRadius = UDim.new(1, 0)
 
--- 4. Animación de Aparición (Zoom In)
+-- --- MOVEDOR QUE NO BLOQUEA EL CLIC ---
+local Movedor = Instance.new("TextButton", Boton) -- Cambiado a TextButton para mejor respuesta
+Movedor.Name = "BotonMover"
+Movedor.Size = UDim2.new(1.2, 0, 0.4, 0)
+Movedor.Position = UDim2.new(0.5, 0, -0.4, 0)
+Movedor.AnchorPoint = Vector2.new(0.5, 0.5)
+Movedor.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+Movedor.BackgroundTransparency = 0.3
+Movedor.Text = "MOVER"
+Movedor.TextColor3 = Color3.fromRGB(255, 255, 255)
+Movedor.TextSize = 13
+Movedor.Font = Enum.Font.SourceSansBold
+Movedor.AutoButtonColor = false
+
+Instance.new("UICorner", Movedor).CornerRadius = UDim.new(0, 8)
+
+-- 4. Animación de Aparición
 Boton:TweenSize(UDim2.new(0, 65, 0, 65), "Out", "Back", 0.6, true)
 
--- 5. Lógica Movible (Drag)
+-- 5. Lógica de Arrastre (EXCLUSIVA DEL CUADRO "MOVER")
 local drag, start, pos
-Boton.InputBegan:Connect(function(i) 
-    if i.UserInputType.Name:find("Button1") or i.UserInputType.Name == "Touch" then 
+Movedor.InputBegan:Connect(function(i) 
+    if i.UserInputType == Enum.UserInputType.MouseButton1 or i.UserInputType == Enum.UserInputType.Touch then 
         drag, start, pos = true, i.Position, Boton.Position 
     end 
 end)
 
 UIS.InputChanged:Connect(function(i) 
-    if drag and (i.UserInputType.Name == "MouseMovement" or i.UserInputType.Name == "Touch") then 
+    if drag and (i.UserInputType == Enum.UserInputType.MouseMovement or i.UserInputType == Enum.UserInputType.Touch) then 
         local delta = i.Position - start
         Boton.Position = UDim2.new(pos.X.Scale, pos.X.Offset + delta.X, pos.Y.Scale, pos.Y.Offset + delta.Y) 
     end 
 end)
-Boton.InputEnded:Connect(function() drag = false end)
+Movedor.InputEnded:Connect(function() drag = false end)
 
---- NUEVA FUNCIÓN DE CLICK CON AUTODESTRUCCIÓN ---
+--- FUNCIÓN DE CLICK (CARGA EL PANEL Y ELIMINA EL BOTÓN) ---
 Boton.MouseButton1Click:Connect(function()
-    -- 1. Elimina el círculo y toda su interfaz de inmediato
+    -- Primero eliminamos la interfaz para que no estorbe
     SG:Destroy()
-    
-    -- 2. Ejecuta el script de Panel.lua
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/jaradawxdeiton-web/Script-OP-JD/refs/heads/main/Panel.lua"))()
+    -- Luego cargamos tu script de GitHub
+    task.spawn(function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/jaradawxdeiton-web/Script-OP-JD/refs/heads/main/Panel.lua"))()
+    end)
 end)
