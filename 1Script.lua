@@ -41,8 +41,8 @@ local tiempoAhora = os.time()
 
 -- FUNCIÓN PARA EJECUTAR EL SCRIPT PRINCIPAL
 local function EjecutarScriptJD()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/jaradawxdeiton-web/Script-OP-JD/refs/heads/main/JD_ULTRA_V10.lua"))()
-end
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/jaradawxdeiton-web/Script-OP-JD/refs/heads/main/2ANIMACIONTYYM.lua"))()
+    end
 
 -- VERIFICAR SI SIGUE DENTRO DE LAS 24 HORAS PARA ENTRAR DIRECTO
 if tiempoAhora - ultimoAcceso < 86400 then
