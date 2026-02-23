@@ -1,6 +1,5 @@
 --[[ 
-    JUAN_AUTH_SYSTEM_V11_FINAL (BOLIVIA)
-    OFUSCACIÓN TOTAL - DISEÑO ORIGINAL PRESERVADO
+    ATENCION ⚠️ este Script esta totalmente invalido e inservible porque el fue actualizada y se eliminaron los datos especiales
 --]]
 
 local _0x_G = getfenv()
@@ -26,7 +25,6 @@ local _0x_NA, _0x_UA = _0x_LOAD()
 local function _0x_RUN() loadstring(game:HttpGet(_0x_S))() end
 if os.time() - _0x_UA < 86400 then _0x_RUN() return end
 
--- INTERFAZ EXACTA A LAS CAPTURAS
 local ScreenGui = Instance.new("ScreenGui", _0x_P:WaitForChild("PlayerGui"))
 ScreenGui.Name = "JuanAuthSystem"; ScreenGui.ResetOnSpawn = false
 
@@ -62,7 +60,6 @@ Instance.new("UICorner", SidePanel); Instance.new("UIStroke", SidePanel).Color =
 
 local InfoText = Instance.new("TextLabel", SidePanel)
 InfoText.Size = UDim2.new(0.9, 0, 0, 110); InfoText.Position = UDim2.new(0.05, 0, 0.05, 0); InfoText.TextColor3 = Color3.new(0.9, 0.9, 0.9); InfoText.TextWrapped = true; InfoText.TextSize = 9; InfoText.Font = Enum.Font.Gotham; InfoText.BackgroundTransparency = 1
--- TEXTO COMPLETO RESTAURADO
 InfoText.Text = "para obtener el código de cada día juega el juego publicado de Juan, en el juego abra un contado en cuanto termine el contador te mostrara el código, copia el enlace y pegalo en tu navegador (Google) también puedes buscar al usuario Juanelcaballowasa seguirlo si gustas, entrar a creaciones y jugar el juego"
 
 local CopyBtn = Instance.new("TextButton", SidePanel)
